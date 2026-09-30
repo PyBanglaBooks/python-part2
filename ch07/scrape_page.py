@@ -25,6 +25,7 @@ for book in books[:3]:
 print(f"{len(books)} books found")
 
 with open("books.csv", "w", newline="", encoding="utf-8") as f:
-    writer = csv.DictWriter(f, fieldnames=["title", "price", "rating", "url"])
+    fields = ["title", "price", "rating", "url"]
+    writer = csv.DictWriter(f, fieldnames=fields)
     writer.writeheader()
     writer.writerows(books)

@@ -26,6 +26,7 @@ def parse_book(html, url):
     for row in soup.find("table").find_all("tr"):
         table[row.th.text] = row.td.text
     stock = re.search(r"\d+", table["Availability"])
+    price = main.find("p", class_="price_color").text
     rating = main.find("p", class_="star-rating")["class"][1]
     crumbs = soup.find("ul", class_="breadcrumb").find_all("a")
     image = soup.find("div", class_="item active").img
@@ -37,7 +38,7 @@ def parse_book(html, url):
     return {
         "title": main.h1.text,
         "category": crumbs[2].text,
-        "price": main.find("p", class_="price_color").text.lstrip("£"),
+        "price": price.lstrip("£"),
         "rating": RATINGS[rating],
         "stock": int(stock.group()) if stock else 0,
         "upc": table["UPC"],
@@ -61,7 +62,7 @@ class BookCrawler:
         return self.cache / name
 
     def get_page(self, url):
-        """Return the HTML of a page, from the cache or the internet"""
+        """Return the HTML of a page, from the cache or the web"""
         file = self.cache_file(url)
         if file.exists():
             logging.debug(f"From cache: {url}")

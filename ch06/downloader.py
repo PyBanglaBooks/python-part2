@@ -14,7 +14,7 @@ else:
 
 response = requests.get(url, timeout=10)
 if not response.ok:
-    sys.exit(f"Download failed: {response.status_code} {response.reason}")
+    sys.exit(f"Download failed: {response.status_code}")
 
 with open(file_name, "wb") as f:
     f.write(response.content)
