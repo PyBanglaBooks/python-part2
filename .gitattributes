@@ -1,1 +1,2 @@
-* text=auto eol=lf
+# Saved web pages and sample HTML are data, not code: keep the repo language Python
+*.html linguist-vendored
